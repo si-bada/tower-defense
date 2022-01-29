@@ -1,9 +1,13 @@
-﻿using UnityEngine;
-
+﻿using System;
+using UnityEngine;
 public class PathPoints : MonoBehaviour
 {
+    #region Static
+    [NonSerialized]
     public static Transform[] points;
+    #endregion
 
+    #region Unity Methods
     private void Awake()
     {
         points = new Transform[transform.childCount];
@@ -12,4 +16,5 @@ public class PathPoints : MonoBehaviour
             points[i] = transform.GetChild(i);
         }
     }
+    #endregion
 }

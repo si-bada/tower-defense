@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5594489083442321250}
   - component: {fileID: 1025459706010144222}
   - component: {fileID: 3870207917631419915}
+  - component: {fileID: -3774187459762451153}
   m_Layer: 0
   m_Name: Stone
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3182259812586053905}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 4, y: 1, z: 4}
   m_Children: []
@@ -93,3 +94,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-3774187459762451153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3182259812586053905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c360c66b1084fd64486031b9a4efdb14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HoverColor: {r: 0, g: 0.6792453, b: 0.49355125, a: 1}
+  NotEnoughMoneyColor: {r: 0.754717, g: 0.024421247, b: 0, a: 1}
+  Offset: {x: 0, y: 0.5, z: 0}
+  turret: {fileID: 0}
