@@ -13,18 +13,15 @@ public class CameraController : MonoBehaviour
     public float minZ;
     public float maxZ;
     #endregion
-    #region Fields
-    private bool lockCamera = false;
-    #endregion
 
     #region Unity Methods
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-            lockCamera = !lockCamera;
-
-        if (lockCamera)
+        if(GameManager.sIntance.GetGameState() == GameState.GameOver)
+        {
+            this.enabled = false;
             return;
+        }
 
         if(transform.position.z <= maxZ && (Input.GetKey(KeyCode.Z) || Input.mousePosition.y >= Screen.height - ScreenBorder))
         {

@@ -4,7 +4,6 @@ public class Bullet : MonoBehaviour
 {
     #region Script Parameters
 	public float Speed = 70f;
-	public int HitDamage = 50;
 	public GameObject impactEffect;
 	public float ExplosionRadius = 0f;
     #endregion
@@ -62,16 +61,16 @@ public class Bullet : MonoBehaviour
 		}
 		else
 		{
-			Damage(target);
+			Damage(target, TurretType.MachineGun);
 		}
         Destroy(gameObject);
 	}
 
-	void Damage(Transform enemy)
+	void Damage(Transform enemy, TurretType from)
     {
 		Enemy e = enemy.GetComponent<Enemy>();
 		if(e != null)
-			e.TakeDamage(HitDamage);
+			e.TakeDamage(GameManager.sIntance.configuration.GetHitDamage(e.Type, from));
     }
 
 	void Explode()
@@ -81,7 +80,7 @@ public class Bullet : MonoBehaviour
         {
 			if(hitObject.tag == "Enemy")
             {
-				Damage(hitObject.transform);
+				Damage(hitObject.transform, TurretType.MissleLauncher);
             }
         }
     }

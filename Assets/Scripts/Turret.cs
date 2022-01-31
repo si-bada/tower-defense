@@ -11,10 +11,17 @@ public class Turret : MonoBehaviour
     public Transform ToRotate;
     public GameObject BulletPrefab;
     public Transform FirePoint;
+
+    [Header("Laser Stuff")]
+    public bool UseLaser = false;
+    public LineRenderer LaserLineRenderer;
+    public int DamageOverTime = 75;
+    public float SlowRatio = 0.5f;
     #endregion
 
     #region Fields
     private Transform target;
+    private Enemy enemyTarget;
     private float fireCountDown;
     #endregion
 
@@ -27,32 +34,66 @@ public class Turret : MonoBehaviour
     private void Update()
     {
         if (target == null)
+        {
+            if(UseLaser)
+            {
+                if(LaserLineRenderer.enabled)
+                {
+                    LaserLineRenderer.enabled = false;
+                }
+            }
             return;
+        }
+        LockTarget();
+
+        if(UseLaser)
+        {
+            Laser();
+        }
+        else
+        {
+            if(fireCountDown <= 0f)
+            {
+                Shoot();
+                fireCountDown = 1f / FireRate;
+            }
+            fireCountDown -= Time.deltaTime;
+        }
+    }
+
+    #endregion
+
+    #region Implementation
+
+    private void Laser()
+    {
+        enemyTarget.TakeDamage(GameManager.sIntance.configuration.GetHitDamage(enemyTarget.Type, TurretType.LaserBeam) * Time.deltaTime);
+        enemyTarget.Slow(SlowRatio);
+        if (!LaserLineRenderer.enabled)
+        {
+            LaserLineRenderer.enabled = true;
+        }
+        LaserLineRenderer.SetPosition(0, FirePoint.position);
+        LaserLineRenderer.SetPosition(1, target.position);
+    }
+
+    private void LockTarget()
+    {
         Vector3 dir = target.position - transform.position;
         Quaternion rotation = Quaternion.LookRotation(dir);
         Vector3 smoothRotation = Quaternion.Lerp(ToRotate.rotation, rotation, Time.deltaTime * RotSpeed).eulerAngles;
         ToRotate.rotation = Quaternion.Euler(0, smoothRotation.y, 0);
-    
-        if(fireCountDown <= 0f)
-        {
-            Shoot();
-            fireCountDown = 1f / FireRate;
-        }
-        fireCountDown -= Time.deltaTime;
     }
 
     private void Shoot()
     {
         GameObject newBullet = Instantiate(BulletPrefab, FirePoint.position, FirePoint.rotation);
         Bullet bullet = newBullet.GetComponent<Bullet>();
-        if(bullet != null)
+        if (bullet != null)
         {
             bullet.Seek(target);
         }
     }
-    #endregion
-
-    #region Implementation
     void UpdateTarget()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
@@ -70,7 +111,8 @@ public class Turret : MonoBehaviour
 
         if(closestEnemy != null && minDistance <= range)
         {
-            target = closestEnemy.transform; 
+            target = closestEnemy.transform;
+            enemyTarget = closestEnemy.GetComponent<Enemy>();
         }
         else
         {

@@ -10,10 +10,11 @@ public class PlayerManager : MonoBehaviour
     #region Script Parameters
     public int Money;
     public TextMeshProUGUI CurrentMoney;
-    public int StartMoney = 400;
+    public int StartMoney;  
     public int Lives;
     public TextMeshProUGUI CurrentLives;
-    public int StartLives = 400;
+    public int StartLives;
+    public int Score;
     #endregion
 
     #region Unity Methods
@@ -46,6 +47,11 @@ public class PlayerManager : MonoBehaviour
     {
         Lives -= 1;
         CurrentLives.text = Lives.ToString();
+    }
+
+    public void UpadateScore(int reward)
+    {
+        Score += reward;
     }
     #endregion
 }

@@ -6,12 +6,6 @@ public class BuildingManager : MonoBehaviour
     public static BuildingManager sIntance;
     #endregion
 
-    #region Script Parameters
-    public GameObject MachineGunTurretPrefab;
-    public GameObject LaserBeamTurretPrefab;
-    public GameObject MissileLauncherTurretPrefab;
-    #endregion
-
     #region Properties
     public bool CanBuild { get { return turretToBuild != null; } }
     public bool HasMoney { get { return PlayerManager.sIntance.Money >= turretToBuild.Cost; } }
