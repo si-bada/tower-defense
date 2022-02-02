@@ -1,12 +1,29 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public string levelToLoad = "LevelSelector";
-    public void Play()
+    #region Script Parameters
+    public GameObject MainCanvas;
+    public GameObject LoginCanvas;
+    public GameObject SignupCanvas;
+    #endregion
+
+    #region Methods
+    public void Login()
     {
-        SceneManager.LoadScene(levelToLoad);
+        LoginCanvas.SetActive(true);
+        MainCanvas.SetActive(false);
     }
+    public void Signup()
+    {
+        SignupCanvas.SetActive(true);
+        MainCanvas.SetActive(false);
+    }
+    public void Back(GameObject gameObject)
+    {
+        gameObject.SetActive(false);
+        MainCanvas.SetActive(true);
+    }
+    #endregion
 
 }

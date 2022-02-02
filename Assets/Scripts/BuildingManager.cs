@@ -15,7 +15,6 @@ public class BuildingManager : MonoBehaviour
     private TurretInfo turretToBuild;
     #endregion
 
-
     #region Unity Methods
     private void Awake()
     {
@@ -26,7 +25,6 @@ public class BuildingManager : MonoBehaviour
     #endregion
 
     #region Methods
-
     public void SetTurretToBuild(TurretInfo turretType)
     {
         turretToBuild = turretType;

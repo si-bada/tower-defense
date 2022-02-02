@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-
 public class TurretShop : MonoBehaviour
 {
     #region Script Parameters

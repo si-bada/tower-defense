@@ -13,60 +13,68 @@ public class WaveSpawner : MonoBehaviour
     #endregion
 
     #region Fields
-    private float countDown = 5f;
+    private float countDown;
     private int waveNumber = 0;
     private bool lastWave = false;
     #endregion
 
     #region Unity Methods
+    private void Awake()
+    {
+        countDown = TimeBetweenWaves;
+    }
     private void Update()
     {
-        if(countDown <= 0f)
+        if(countDown <= 0f  && !lastWave)
         {
             StartCoroutine(SpawnWave());
             countDown = TimeBetweenWaves;
         }
 
-        countDown -= Time.deltaTime;
-        countDown = Mathf.Clamp(countDown, 0f, Mathf.Infinity);
-        WaveCountDownText.text = string.Format("{0:00.00}", countDown);
+        if(lastWave)
+        {
+            WaveCountDownText.text = "Last Wave";
+            Debug.LogWarning("Last Wave" + EnemiesAlive);
+            if (EnemiesAlive <= 0)
+            {
+                this.enabled = false;
+                LevelManager.sIntance.WinLevel();
+            }
+        }
+
+        if (!lastWave)
+        {
+            countDown -= Time.deltaTime;
+            countDown = Mathf.Clamp(countDown, 0f, Mathf.Infinity);
+            WaveCountDownText.text = string.Format("{0:00.00}", countDown);
+        }
+
     }
     #endregion
 
     #region Implementations
     IEnumerator SpawnWave()
     {
-        if(waveNumber == Waves.Length )
+        Wave wave = Waves[waveNumber];
+        waveNumber++;
+        EnemiesAlive += wave.count;
+        yield return new WaitForEndOfFrame();
+        Debug.LogWarning(EnemiesAlive);
+        for (int i=0; i< wave.count; i++)
         {
-            WaveCountDownText.text = "Last Herd";
+            SpawnEnemy(wave.enemy);
+            yield return new WaitForSeconds(1f / wave.rate);
 
-            if ( EnemiesAlive == 0)
-            {
-                this.enabled = false;
-                GameManager.sIntance.WinLevel();
-            }
         }
-        else
+        if(waveNumber == Waves.Length)
         {
-            Wave wave = Waves[waveNumber];
-            for (int i=0; i< wave.count; i++)
-            {
-                SpawnEnemy(wave.enemy);
-                yield return new WaitForSeconds(1f / wave.rate);
-
-            }
-            waveNumber++;
-            if(waveNumber == Waves.Length)
-            {
-                lastWave = true;
-            }
+            lastWave = true;
         }
     }
 
     private void SpawnEnemy(GameObject enemy)
     {
         Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
-        EnemiesAlive++;
     }
     #endregion
 }

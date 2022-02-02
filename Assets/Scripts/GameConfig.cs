@@ -5,8 +5,11 @@ using UnityEngine;
 [System.Serializable]
 public class GameConfig : ScriptableObject
 {
+    #region Script Parameters
     public TurretDamageConfig[] DamageConfig;
+    #endregion
 
+    #region Methods
     public int GetHitDamage(EnemyType enemy, TurretType type)
     {
         if(type == TurretType.MachineGun)
@@ -55,6 +58,7 @@ public class GameConfig : ScriptableObject
             }
         }
     }
+    #endregion
 }
 
 [System.Serializable]
@@ -69,19 +73,4 @@ public struct Enemies
 {
     public EnemyType enemy;
     public int damageTaken;
-}
-
-[System.Serializable]
-public enum TurretType
-{
-    MachineGun,
-    MissleLauncher,
-    LaserBeam
-}
-[System.Serializable]
-public enum EnemyType
-{
-    Normal,
-    Strong,
-    Fast
 }

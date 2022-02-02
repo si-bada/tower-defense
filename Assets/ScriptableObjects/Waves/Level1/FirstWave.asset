@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: FirstWave
   m_EditorClassIdentifier: 
   enemy: {fileID: 5359809923664818275, guid: a2502ba9cc1832b48b1a8183886d4195, type: 3}
-  count: 2
+  count: 1
   rate: 1

@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
-
 public class Stone : MonoBehaviour
 {
     #region Script Parameters

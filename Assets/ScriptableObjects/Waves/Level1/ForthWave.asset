@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aae2ba08126fdfd4bb931b9fd2ab2fd8, type: 3}
   m_Name: ForthWave
   m_EditorClassIdentifier: 
-  enemy: {fileID: 5359809923664818275, guid: 1ba449dc128ee344a97bb20289c8b30f, type: 3}
-  count: 3
+  enemy: {fileID: 5359809923664818275, guid: a2502ba9cc1832b48b1a8183886d4195, type: 3}
+  count: 4
   rate: 1

@@ -4,23 +4,22 @@ using UnityEngine.UI;
 public class Enemy : MonoBehaviour
 {
     #region Script Parameters
-    public Image HeathBar;
-    public GameObject DeathEffect;
-
-    public EnemyType Type;
-    public float StartSpeed;
-    public float StartHealth;
-    public int Reward;
-    public int PenaltyPerHit;
-
+    public Image            HeathBar;
+    public GameObject       DeathEffect;
+    public EnemyType        Type;
+    public float            StartSpeed;
+    public float            StartHealth;
+    public int              Reward;
+    public int              PenaltyPerHit;
     [HideInInspector]
-    public float Speed;
+    public float            Speed;
     #endregion
 
     #region Fields
-    private float health;
-    private int hitsTaken = 0;
+    private float           health;
+    private int             hitsTaken = 0;
     #endregion
+
     #region Unity Methods
     private void Start()
     {
@@ -30,16 +29,21 @@ public class Enemy : MonoBehaviour
     #endregion
 
     #region Methods
-    public void TakeDamage(float amount)
+    public void TakeDamage(float amount, TurretType from)
     {
-        Debug.LogWarning(amount);
-        hitsTaken++;
+        if(from != TurretType.LaserBeam)
+            hitsTaken++;
+
         health -= amount;
         HeathBar.fillAmount = health / StartHealth;
         if(health <=0)
         {
             Die();
         }
+    }
+    public void Slow(float ratio)
+    {
+        Speed = StartSpeed * (1f - ratio);
     }
     #endregion
 
@@ -52,13 +56,18 @@ public class Enemy : MonoBehaviour
         Destroy(effect, 3f);
         Destroy(gameObject);
         WaveSpawner.EnemiesAlive--;
+        Debug.LogWarning("Remaning " + WaveSpawner.EnemiesAlive);
         PlayerManager.sIntance.UpadateScore(Reward);
     }
 
     #endregion
-    public  void Slow(float ratio)
-    {
-        Speed = StartSpeed * (1f - ratio);
-    }
 
+}
+
+[System.Serializable]
+public enum EnemyType
+{
+    Normal,
+    Strong,
+    Fast
 }

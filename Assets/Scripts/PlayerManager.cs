@@ -8,12 +8,13 @@ public class PlayerManager : MonoBehaviour
     #endregion
 
     #region Script Parameters
-    public int Money;
     public TextMeshProUGUI CurrentMoney;
-    public int StartMoney;  
-    public int Lives;
     public TextMeshProUGUI CurrentLives;
+    public TextMeshProUGUI CurrentScore;
+    public int StartMoney;  
     public int StartLives;
+    public int Money;
+    public int Lives;
     public int Score;
     #endregion
 
@@ -29,6 +30,9 @@ public class PlayerManager : MonoBehaviour
 
         Lives = StartLives;
         CurrentLives.text = Lives.ToString();
+
+        Score = UserController.sInstance.CurrentUser.score;
+        CurrentScore.text = Score.ToString();
     }
     #endregion
 
@@ -52,6 +56,7 @@ public class PlayerManager : MonoBehaviour
     public void UpadateScore(int reward)
     {
         Score += reward;
+        CurrentScore.text = Score.ToString();
     }
     #endregion
 }

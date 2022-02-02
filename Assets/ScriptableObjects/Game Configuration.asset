@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DamageConfig:
   - type: 0
+    cost: 100
     enemies:
     - enemy: 0
       damageTaken: 50
@@ -22,6 +23,7 @@ MonoBehaviour:
     - enemy: 2
       damageTaken: 50
   - type: 1
+    cost: 150
     enemies:
     - enemy: 0
       damageTaken: 100
@@ -30,6 +32,7 @@ MonoBehaviour:
     - enemy: 0
       damageTaken: 25
   - type: 2
+    cost: 200
     enemies:
     - enemy: 0
       damageTaken: 50

@@ -3,8 +3,8 @@
 public class Bullet : MonoBehaviour
 {
     #region Script Parameters
-	public float Speed = 70f;
 	public GameObject impactEffect;
+	public float Speed = 70f;
 	public float ExplosionRadius = 0f;
     #endregion
 
@@ -13,7 +13,6 @@ public class Bullet : MonoBehaviour
     #endregion
 
     #region Unity Methods
-	// Update is called once per frame
 	void Update()
 	{
 
@@ -70,7 +69,7 @@ public class Bullet : MonoBehaviour
     {
 		Enemy e = enemy.GetComponent<Enemy>();
 		if(e != null)
-			e.TakeDamage(GameManager.sIntance.configuration.GetHitDamage(e.Type, from));
+			e.TakeDamage(GameManager.sIntance.configuration.GetHitDamage(e.Type, from), from);
     }
 
 	void Explode()

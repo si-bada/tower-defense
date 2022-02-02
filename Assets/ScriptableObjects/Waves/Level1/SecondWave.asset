@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aae2ba08126fdfd4bb931b9fd2ab2fd8, type: 3}
   m_Name: SecondWave
   m_EditorClassIdentifier: 
-  enemy: {fileID: 5359809923664818275, guid: 0fe8b83426f16f042adcef5c3f4b8259, type: 3}
+  enemy: {fileID: 5359809923664818275, guid: a2502ba9cc1832b48b1a8183886d4195, type: 3}
   count: 2
   rate: 1

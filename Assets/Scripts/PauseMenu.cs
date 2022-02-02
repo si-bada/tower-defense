@@ -3,7 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
+    #region Script Parameters
     public GameObject PauseMenuUI;
+    #endregion
+
+    #region Unity Methods
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape))
@@ -11,7 +15,9 @@ public class PauseMenu : MonoBehaviour
             Toggle();
         }
     }
+    #endregion
 
+    #region Methods
     public void Toggle()
     {
         PauseMenuUI.SetActive(!PauseMenuUI.activeSelf);
@@ -24,7 +30,6 @@ public class PauseMenu : MonoBehaviour
             Time.timeScale = 1f;
         }
     }
-
     public void Retry()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -33,6 +38,8 @@ public class PauseMenu : MonoBehaviour
 
     public void Menu()
     {
-        SceneManager.LoadScene("Menu");
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("LevelSelector");
     }
+    #endregion
 }

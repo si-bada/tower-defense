@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
@@ -60,14 +59,18 @@ public class Turret : MonoBehaviour
             fireCountDown -= Time.deltaTime;
         }
     }
-
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, range);
+    }
     #endregion
 
     #region Implementation
 
     private void Laser()
     {
-        enemyTarget.TakeDamage(GameManager.sIntance.configuration.GetHitDamage(enemyTarget.Type, TurretType.LaserBeam) * Time.deltaTime);
+        enemyTarget.TakeDamage(GameManager.sIntance.configuration.GetHitDamage(enemyTarget.Type, TurretType.LaserBeam) * Time.deltaTime, TurretType.LaserBeam);
         enemyTarget.Slow(SlowRatio);
         if (!LaserLineRenderer.enabled)
         {
@@ -94,7 +97,7 @@ public class Turret : MonoBehaviour
             bullet.Seek(target);
         }
     }
-    void UpdateTarget()
+    private void UpdateTarget()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
         float minDistance = Mathf.Infinity;
@@ -119,10 +122,13 @@ public class Turret : MonoBehaviour
             target = null;
         }
     }
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, range);
-    }
     #endregion
+}
+
+[System.Serializable]
+public enum TurretType
+{
+    MachineGun,
+    MissleLauncher,
+    LaserBeam
 }
